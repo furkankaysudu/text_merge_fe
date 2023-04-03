@@ -7,9 +7,10 @@ import { Button } from "@mui/material";
 
 export default function MultilineTextFields() {
   const baseURL = "http://localhost:8080/text";
+ 
 
-  const [text1, setText1] = useState("a");
-  const [text2, setText2] = useState("a");
+  const [text1, setText1] = useState("");
+  const [text2, setText2] = useState("");
   const [outText, setOutText] = useState("");
 
   const handleChange1 = (e) => {
@@ -22,27 +23,30 @@ export default function MultilineTextFields() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios
-      .post(baseURL, {
+    // const mergeText = {
+    //   firstInput: text1,
+    //   secondInput: text2
+    // }
+    postData()
+  };
+
+   const postData = async () =>{
+      await axios.post(baseURL,{}, {params:{
         firstInput: text1,
         secondInput: text2
-      })
-      .then((res) => {})
-      .catch((error) => {
-        // Handle error
-        console.error(error.response.data);});
-  };
-  //  const postData = async (newText) =>{
-  //     try {await axios.post(baseURL,newText)
-  //  }catch(err){console.error("error");}
-  // }
-  const getData = async () => {
-    await axios(baseURL).then((res) => {
-      const outPut =res.data[res.data.length-1].firstInput;
-      console.log(res);
-      setOutText(outPut);
-    });
-  };
+      }}).then(response => {
+        setOutText( response.data)})
+      .catch(err => console.warn(err));
+      
+     
+  }
+  // const getData = async () => {
+  //   await axios(baseURL).then((res) => {
+  //     const outPut =res.data[res.data.length-1].firstInput;
+  //     console.log(res);
+  //     setOutText(outPut);
+  //   });
+  // };
 
   return (
     <Box
@@ -88,7 +92,7 @@ export default function MultilineTextFields() {
           mt: 5,
         }}
       >
-        <Button variant="contained" color="success" onClick={getData}>
+        <Button variant="contained" color="success">
           Kaydet
         </Button>
       </Box>
