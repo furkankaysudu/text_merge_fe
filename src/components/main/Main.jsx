@@ -40,13 +40,13 @@ export default function MultilineTextFields() {
       
      
   }
-  // const getData = async () => {
-  //   await axios(baseURL).then((res) => {
-  //     const outPut =res.data[res.data.length-1].firstInput;
-  //     console.log(res);
-  //     setOutText(outPut);
-  //   });
-  // };
+  const getData = async () => {
+    await axios(baseURL).then((res) => {
+      const outPut =res.data[res.data.length-1].firstInput;
+      console.log(outPut);
+      console.log(res)
+    });
+  };
 
   return (
     <Box
@@ -92,7 +92,7 @@ export default function MultilineTextFields() {
           mt: 5,
         }}
       >
-        <Button variant="contained" color="success">
+        <Button variant="contained" color="success" onClick={getData}>
           Kaydet
         </Button>
       </Box>
